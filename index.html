@@ -1,35 +1,281 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Singularity</title>
-    <link rel="icon" href="./images/icons/favicon.png" type="image/png">
-    <!-- Google Tag Manager -->
-    <script>(function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
-        var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-        j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-        f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-PQNGKVXV');</script>
-    <!-- End Google Tag Manager -->
-  <script type="module" crossorigin src="./assets/index-CWAP112F.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-CoO-r9DB.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ivan Chen - Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      color: white;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 4rem;
+      animation: fadeInDown 0.8s ease;
+    }
+    
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .subtitle {
+      font-size: 1.3rem;
+      opacity: 0.9;
+    }
+    
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      animation: fadeInUp 0.8s ease 0.3s both;
+    }
+    
+    .project-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2.5rem;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-decoration: none;
+      color: white;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s;
+    }
+    
+    .project-card:hover::before {
+      transform: translateX(100%);
+    }
+    
+    .project-card:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    
+    .emoji {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      display: block;
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    .project-card:nth-child(2) .emoji {
+      animation-delay: 0.5s;
+    }
+    
+    .project-card:nth-child(3) .emoji {
+      animation-delay: 1s;
+    }
+    
+    .project-title {
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .project-desc {
+      font-size: 1rem;
+      opacity: 0.85;
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+    
+    .tags {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    
+    .tag {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding: 0.9rem 1.8rem;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50px;
+      font-size: 1rem;
+      transition: all 0.3s;
+      font-weight: 500;
+    }
+    
+    .project-card:hover .btn {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateX(5px);
+    }
+    
+    .coming-soon {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .coming-soon:hover {
+      transform: none;
+    }
+    
+    .coming-soon .btn {
+      opacity: 0.5;
+    }
+    
+    footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding: 2rem;
+      opacity: 0.7;
+    }
+    
+    footer a {
+      color: white;
+      text-decoration: none;
+      margin: 0 1rem;
+      transition: opacity 0.3s;
+    }
+    
+    footer a:hover {
+      opacity: 1;
+    }
+    
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      .projects {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQNGKVXV"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript>
-<!-- End Google Tag Manager (noscript) -->
-<canvas id="preloader"></canvas>
-
-<div id="debug-panel" style="width: 400px;"></div>
-
-<canvas class="webgl"></canvas>
-
+  <div class="container">
+    <header>
+      <h1>👨‍💻 Ivan Chen</h1>
+      <p class="subtitle">Full Stack Developer & Creative Coder</p>
+    </header>
+    
+    <div class="projects">
+      <a href="/singularity/" class="project-card">
+        <span class="emoji">🌌</span>
+        <div class="project-title">Singularity</div>
+        <p class="project-desc">
+          基于 Three.js + WebGPU 的实时黑洞引力透镜效果模拟。
+          使用光线追踪技术还原爱因斯坦广义相对论预言的时空弯曲现象。
+        </p>
+        <div class="tags">
+          <span class="tag">Three.js</span>
+          <span class="tag">WebGPU</span>
+          <span class="tag">GLSL Shader</span>
+          <span class="tag">Ray Tracing</span>
+        </div>
+        <span class="btn">
+          探索项目
+          <span>→</span>
+        </span>
+      </a>
+      
+      <div class="project-card coming-soon">
+        <span class="emoji">🎮</span>
+        <div class="project-title">Interactive Game</div>
+        <p class="project-desc">
+          敬请期待...
+        </p>
+        <div class="tags">
+          <span class="tag">React</span>
+          <span class="tag">Canvas API</span>
+        </div>
+        <span class="btn">Coming Soon</span>
+      </div>
+      
+      <div class="project-card coming-soon">
+        <span class="emoji">🤖</span>
+        <div class="project-title">AI Application</div>
+        <p class="project-desc">
+          敬请期待...
+        </p>
+        <div class="tags">
+          <span class="tag">Machine Learning</span>
+          <span class="tag">TensorFlow.js</span>
+        </div>
+        <span class="btn">Coming Soon</span>
+      </div>
+    </div>
+    
+    <footer>
+      <a href="https://github.com/ivanchen008" target="_blank">GitHub</a>
+      <span>|</span>
+      <a href="mailto:your-email@example.com">Contact</a>
+    </footer>
+  </div>
 </body>
 </html>
