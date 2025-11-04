@@ -1,0 +1,50 @@
+name: Update from Singularity
+
+on:
+  repository_dispatch:
+    types: [update-singularity]  # 响应 singularity 的触发
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  update-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout main site
+        uses: actions/checkout@v3
+        
+      - name: 📥 Clone singularity project
+        run: |
+          git clone https://github.com/ivanchen008/singularity.git temp-singularity
+          
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: 🔧 Install dependencies
+        run: |
+          cd temp-singularity
+          npm install
+          
+      - name: 🏗️ Build singularity
+        run: |
+          cd temp-singularity
+          npm run build
+          
+      - name: 📁 Copy built files
+        run: |
+          # 如果已存在 singularity 文件夹，先删除
+          rm -rf singularity
+          # 复制构建文件
+          cp -r temp-singularity/dist singularity
+          # 清理临时文件
+          rm -rf temp-singularity
+          
+      - name: 📝 Commit and push
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add singularity/
+          git commit -m "🔄 Auto update from singularity project" || echo "No changes to commit"
+          git push
