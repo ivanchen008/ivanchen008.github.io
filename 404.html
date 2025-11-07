@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <script>
+    // 获取当前路径，去掉前面的域名部分，并确保包含 /singularity
+    const segment = '/singularity';
+    const currentPath = window.location.pathname;
+    
+    // 如果当前路径不是以子项目路径开头，就重定向到子项目首页
+    if (!currentPath.startsWith(segment)) {
+      window.location.href = segment + '/';
+    } else {
+      // 如果已经是子项目路径，则重定向到子项目下的index.html
+      // 这里可以根据你的入口文件位置调整
+      window.location.href = segment + '/index.html';
+    }
+  </script>
+</head>
+<body>
+  <p>Redirecting...</p>
+</body>
+</html>
